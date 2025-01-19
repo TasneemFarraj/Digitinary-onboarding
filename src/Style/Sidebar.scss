@@ -16,9 +16,11 @@
   z-index: 1000;
   transition: width 0.3s ease-in-out;
   overflow: hidden;
+  min-width: 60px;
+  max-width: 800px; 
 
   &.open {
-    width: 280px;
+    width: 700px; 
   }
 
   &.closed {
@@ -28,8 +30,8 @@
 
 .sidebar-toggle {
   position: absolute;
-  bottom: 250px;
-  left: calc(20px - 390px);
+  bottom: 270px;
+  left: calc(-100px - 400px);
   background: none;
   border: none;
   cursor: pointer;
@@ -39,7 +41,7 @@
   transition: left 0.3s ease-in-out;
 
   .sidebar-wrapper.open & {
-    left: calc(150px - 350px);
+    left: calc(10px - 350px);
   }
   &:focus {
     outline: none;
@@ -84,7 +86,6 @@
   position: relative;
   flex: 1;
   padding: 1rem;
-  overflow-y: auto;
 
   .menu-item {
     display: flex;
@@ -128,32 +129,7 @@
       display: none;
     }
   }
-
-  .submenu {
-    padding-left: 20px;
-    list-style-type: none;
-    margin-left: -70px;
-    
-    .submenu-item {
-      display: block;
-      font-size: 0.875rem;
-      color: #6b7280;
-      padding: 5px;
-
-      &:hover {
-        color: #41c9c3;
-      }
-
-      &:active,
-      &:focus {
-        background-color: #e5e7eb;
-        border-left: 2px solid #41c9c3;
-        outline: none;
-      }
-    }
-  }
 }
-
 .sidebar.open .menu-item .chevron {
   display: inline;
 }
@@ -203,10 +179,53 @@
       margin-left: 10px;
       margin-top: 50px;
     }
-    &:focus {
-      outline: none;
+   
+  }
+}
+.sidebar-coworkers {
+  margin-top: auto;
+  padding: 10px;
+
+  h2 {
+    margin-bottom: 15px;
+    color: #374151;
+    font-size: 16px;
+  }
+
+  .coworkers {
+    display: flex;
+    align-items: center;
+
+    .coworker-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 5px;
+      margin-left: 10px;
+    }
+
+    .coworker-extra {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
   }
 }
+.coworkers-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 
-
+  .menu-item-icon {
+    width: 30px;
+    height: 30px;
+    color: #374151;
+  }
+}

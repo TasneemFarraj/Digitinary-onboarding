@@ -1,0 +1,47 @@
+.frontend-page {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa;
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .projects-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .selected-project-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    .project-steps-container {
+      width: 100%;
+      max-width: 800px;
+
+      .current-step-content {
+        margin-top: 1rem;
+        color: #444;
+      }
+
+      .step-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
