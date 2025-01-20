@@ -22,6 +22,8 @@ import user3 from "../assets/user3.png";
 import user4 from "../assets/user4.png";
 import user5 from "../assets/user5.png";
 import user6 from "../assets/user6.png";
+import tasneemAvatar from "../assets/taneemAvater.png";
+
 
 const Sidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -184,22 +186,22 @@ const Sidebar: React.FC = () => {
             )
           )}
         </div>
-
         <div className="sidebar-footer">
-          <div className="profile">
-            <img
-              src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png"
-              alt="User Avatar"
-              className="profile-avatar"
-            />
-            {isSidebarOpen && (
-              <div>
-                <p className="profile-name">Tasneem</p>
-                <p className="profile-email">m@example.com</p>
-              </div>
-            )}
-          </div>
-        </div>
+        <div className="profile">
+           <img
+        src={tasneemAvatar}
+        alt="User Avatar"
+        className="profile-avatar"
+        />
+    {isSidebarOpen && (
+      <div>
+        <p className="profile-name">Tasneem Farraj</p>
+        <p className="profile-email">tasneemfarraj@gmail.com</p>
+      </div>
+    )}
+  </div>
+</div>
+
       </aside>
     </div>
   );
