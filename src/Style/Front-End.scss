@@ -12,15 +12,18 @@
   .page-title {
     font-size: 25px;
     font-weight: bold;
-    margin-bottom: 40px;
-    font-size: 25px;
-    color: #444;
+    font-size: 30px;
     text-align: center;
     font-family: "Urbanist", serif;
   font-optical-sizing: auto;
 
   }
+  .page-desc{
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 50px;
 
+  }
   .projects-container {
     display: flex;
     justify-content: center; 
@@ -83,7 +86,11 @@
   justify-content: center; 
   align-items: center; 
   margin: 0 auto; 
+  &:hover {
+    scale: 1.1;
+    }
 }
+
 .structure-img2{
   width: 500px;
   height: 200px;
@@ -91,4 +98,8 @@
   justify-content: center; 
   align-items: center; 
   margin: 0 auto; 
+ 
+&:hover {
+scale: 1.1;
+}
 }

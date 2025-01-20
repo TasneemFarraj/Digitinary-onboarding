@@ -34,6 +34,7 @@ const projects: ProjectType[] = [
       {
         title: "Architecture",
         description: "Define project goals and strategy.",
+        
         links: [
           "https://micro-frontends.org/",
           "https://websitesetup.org/website-coding-html-css/"
@@ -224,8 +225,8 @@ const FrontEnd: React.FC = () => {
   return (
     <div className="frontend-page">
       <ToastContainer />
-      <h1 className="page-title">Front-End Department</h1>
-
+      <h1 className="page-title">Front-End Departments</h1>
+      <h1 className="page-desc">We have three projects we work on in Diditinary company</h1>
       <div className="projects-container">
         {projects.map((project, index) => (
           <motion.div
@@ -256,7 +257,7 @@ const FrontEnd: React.FC = () => {
                 </Step>
               ))}
             </Stepper>
-            <Box className="current-step-content" sx={{ p: 2, textAlign: "center" }}>
+            <Box className="current-step-content" sx={{ p: 2, textAlign: "left"}}>
               <Typography variant="h5" gutterBottom>
                 {selectedProject.steps[currentStep].title}
               </Typography>
@@ -265,7 +266,7 @@ const FrontEnd: React.FC = () => {
               </Typography>
               {selectedProject.steps[currentStep].details}
               {selectedProject.steps[currentStep].links?.map(link => (
-                <Typography key={link}>
+                <Typography key={link} sx={{marginTop:1.5}}>
                   <a
                     href={link}
                     target="_blank"

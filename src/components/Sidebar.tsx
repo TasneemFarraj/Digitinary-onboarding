@@ -11,7 +11,6 @@ import {
   DollarSign,
   Box,
   Users,
-
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Style/Sidebar.scss";
@@ -28,6 +27,7 @@ const Sidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isFrontEndSelected, setIsFrontEndSelected] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const menuItems = [
@@ -92,6 +92,10 @@ const Sidebar: React.FC = () => {
     navigate("/co-workers");
   };
 
+  const handleMenuItemClick = (category: string) => {
+    setActiveCategory(category);
+  };
+
   return (
     <div className={`sidebar-wrapper ${isSidebarOpen ? "open" : "closed"}`}>
       <button
@@ -135,8 +139,8 @@ const Sidebar: React.FC = () => {
               <Link
                 key={category}
                 to={path}
-                className="menu-item"
-                onClick={onClick}
+                className={`menu-item ${activeCategory === category ? 'active' : ''}`}
+                onClick={() => { handleMenuItemClick(category); onClick && onClick(); }}
               >
                 <span className="menu-item-icon">{icon}</span>
                 {isSidebarOpen && <span>{category}</span>}
@@ -195,7 +199,6 @@ const Sidebar: React.FC = () => {
               </div>
             )}
           </div>
-          
         </div>
       </aside>
     </div>
