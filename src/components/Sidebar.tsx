@@ -1,4 +1,3 @@
-// Import necessary assets
 import React, { useState } from "react";
 import {
   Menu,

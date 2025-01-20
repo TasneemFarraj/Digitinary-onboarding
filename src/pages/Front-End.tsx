@@ -35,8 +35,8 @@ const projects: ProjectType[] = [
         title: "Architecture",
         description: "Define project goals and strategy.",
         links: [
-          "https://www.atom.com/name/Test",
-          "https://www.atom.com/name/Test"
+          "https://micro-frontends.org/",
+          "https://websitesetup.org/website-coding-html-css/"
         ],
         details: (
           <Box sx={{ textAlign: "left", p: 2 }}>
@@ -68,28 +68,10 @@ const projects: ProjectType[] = [
         title: "Business Requirements",
         description: "A description of the key business requirements and objectives for the project.",
         links: [
-          "https://www.atom.com/name/Test",
-          "https://www.atom.com/name/Test"
+          "https://asana.com/resources/business-requirements-document-template",
+          "https://www.projectmanager.com/blog/business-requirements-document"
         ],
-        // details: (
-        //   <Box sx={{ textAlign: "left", p: 2 }}>
-        //     <Typography variant="body1">
-        //       Resources:
-        //       <ul>
-        //         <li>
-        //           <a href="https://www.atom.com/name/Test" target="_blank" rel="noopener noreferrer">
-        //             Business Docs Link 1
-        //           </a>
-        //         </li>
-        //         <li>
-        //           <a href="https://www.atom.com/name/Test" target="_blank" rel="noopener noreferrer">
-        //             Business Docs Link 2
-        //           </a>
-        //         </li>
-        //       </ul>
-        //     </Typography>
-        //   </Box>
-        // ),
+    
       },
       {
         title: "Technical Setup",
@@ -208,37 +190,36 @@ const FrontEnd: React.FC = () => {
     setCurrentStep(0);
     setClickedLinks(new Set());
   };
-
   const handleNext = () => {
     if (!selectedProject) return;
-
+  
     const currentStepObj = selectedProject.steps[currentStep];
     const currentLinks = currentStepObj.links || [];
-
-    if (currentStepObj.title === "Business Requirements") {
-      if (clickedLinks.size < currentLinks.length) {
-        toast.error("Please click all the business document links before proceeding.");
-        return;
+  
+    if (currentLinks.length > 0) {
+      if (currentLinks.every(link => clickedLinks.has(link))) {
+        toast.success(`${currentStepObj.title} completed!`);
+        setCurrentStep(prev => prev + 1); 
       } else {
-        toast.success("Business step completed!");
+        toast.error("Please click all the links before proceeding.");
       }
-    }
-
-    if (currentLinks.every(link => clickedLinks.has(link))) {
-      setCurrentStep(prev => prev + 1);
     } else {
-      toast.error("Please click all the links before proceeding.");
+      toast.success(`${currentStepObj.title} completed!`);
+      setCurrentStep(prev => prev + 1);
     }
   };
+  
+  const handleLinkClick = (link: string) => {
+    setClickedLinks(prev => new Set(prev.add(link)));
+    toast.info(`Clicked link: ${link}`);
+  };
+  
+  
 
   const handlePrevious = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleLinkClick = (link: string) => {
-    setClickedLinks(prev => new Set(prev.add(link)));
-    toast.info(`Clicked link: ${link}`);
-  };
 
   return (
     <div className="frontend-page">
@@ -296,6 +277,7 @@ const FrontEnd: React.FC = () => {
                 </Typography>
               ))}
             </Box>
+            
             <div className="step-navigation">
               <Button
                 onClick={handlePrevious}
