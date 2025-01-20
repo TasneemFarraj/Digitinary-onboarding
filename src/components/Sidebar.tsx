@@ -196,11 +196,7 @@ const Sidebar: React.FC = () => {
               </div>
             )}
           </div>
-          {!isSidebarOpen && (
-            <div className="users-icon" onClick={handleViewAllClick}>
-              <Users className="menu-item-icon" />
-            </div>
-          )}
+          
         </div>
       </aside>
     </div>

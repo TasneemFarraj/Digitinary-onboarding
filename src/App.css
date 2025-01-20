@@ -45,6 +45,9 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  /* overflow: hidden;  */
-  background-color: rgb(255, 255, 255);
+  color: #061826;
+  background-color: #f8f9fa;
+  font-family: "Urbanist", serif;
+  font-optical-sizing: auto;
 }
+

@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Stepper, Step, StepLabel, Button, Typography, Box } from "@mui/material";
-import Card from "../components/Card"; 
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Card from "../components/Card";
 import "../Style/Front-End.scss";
 import ArenaLogo from "../assets/ArenaLogo.png";
 import DgateLogo from "../assets/DgateLogo.png";
-import KnetLogo from "../assets/KnetLogo.png"
+import KnetLogo from "../assets/KnetLogo.png";
 import MicroFrontEnd from "../assets/MicroFrontEnd.png";
-import DeploymentProcess from "../assets/DeploymentProcess.png"
+import DeploymentProcess from "../assets/DeploymentProcess.png";
 
 interface StepType {
   title: string;
   description: string;
   details?: React.ReactNode;
+  links?: string[];
 }
 
 interface ProjectType {
@@ -31,6 +34,10 @@ const projects: ProjectType[] = [
       {
         title: "Architecture",
         description: "Define project goals and strategy.",
+        links: [
+          "https://www.atom.com/name/Test",
+          "https://www.atom.com/name/Test"
+        ],
         details: (
           <Box sx={{ textAlign: "left", p: 2 }}>
             <Typography variant="h6">1. Micro Frontend</Typography>
@@ -40,19 +47,13 @@ const projects: ProjectType[] = [
               specific modules, ensuring scalability and modularity.
             </Typography>
             <Typography variant="body1">
-              Resources:
-              <ul>
-                <li>Micro Frontend Overview</li>
-                <li>Detailed Architecture</li>
-              </ul>
-            </Typography>
-            <Typography variant="body1">
-            Structure: <img 
-                src={MicroFrontEnd} 
-                alt="MicroFrontEnd" 
+              Structure:
+              <img
+                src={MicroFrontEnd}
+                alt="Micro Frontend"
                 className="structure-img"
               />
-              </Typography>
+            </Typography>
             <Typography variant="h6" sx={{ mt: 2 }}>
               2. Digitinary-UI
             </Typography>
@@ -60,26 +61,35 @@ const projects: ProjectType[] = [
               Overview: A UI library designed to maintain consistency across all
               modules with reusable components and styling.
             </Typography>
-            <Typography variant="body1">
-              Resources: <a href="#" style={{ color: "#1a73e8" }}>Digitinary-UI Documentation</a>
-            </Typography>
           </Box>
         ),
       },
       {
         title: "Business Requirements",
         description: "A description of the key business requirements and objectives for the project.",
-        details: (
-          <Box sx={{ textAlign: "left", p: 2 }}>
-            <Typography variant="body1">
-              Resources:
-              <ul>
-                <li><a href="#">Business Docs Link 1</a></li>
-                <li><a href="#">Business Docs Link 2</a></li>
-              </ul>
-            </Typography>
-          </Box>
-        ),
+        links: [
+          "https://www.atom.com/name/Test",
+          "https://www.atom.com/name/Test"
+        ],
+        // details: (
+        //   <Box sx={{ textAlign: "left", p: 2 }}>
+        //     <Typography variant="body1">
+        //       Resources:
+        //       <ul>
+        //         <li>
+        //           <a href="https://www.atom.com/name/Test" target="_blank" rel="noopener noreferrer">
+        //             Business Docs Link 1
+        //           </a>
+        //         </li>
+        //         <li>
+        //           <a href="https://www.atom.com/name/Test" target="_blank" rel="noopener noreferrer">
+        //             Business Docs Link 2
+        //           </a>
+        //         </li>
+        //       </ul>
+        //     </Typography>
+        //   </Box>
+        // ),
       },
       {
         title: "Technical Setup",
@@ -126,11 +136,14 @@ const projects: ProjectType[] = [
                 <li>Staging (STG): Pre-production environment for client reviews.</li>
               </ul>
             </Typography>
-            <Typography variant="body1"> Structure: <img 
-                src={DeploymentProcess} 
-                alt="DeploymentProcess" 
-                className="structure-img"
-              /></Typography>
+            <Typography variant="body1">
+              Structure:
+              <img
+                src={DeploymentProcess}
+                alt="Deployment Process"
+                className="structure-img2"
+              />
+            </Typography>
             <Typography variant="h6">Jira and Ticket Process</Typography>
             <Typography variant="body1">
               <ol>
@@ -161,6 +174,7 @@ const projects: ProjectType[] = [
       },
     ],
   },
+
   {
     name: "D-Gate",
     logo: DgateLogo,
@@ -187,40 +201,58 @@ const projects: ProjectType[] = [
 const FrontEnd: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [clickedLinks, setClickedLinks] = useState<Set<string>>(new Set());
 
   const handleCardClick = (project: ProjectType) => {
     setSelectedProject(project);
     setCurrentStep(0);
+    setClickedLinks(new Set());
   };
 
   const handleNext = () => {
-    if (selectedProject && currentStep < selectedProject.steps.length - 1) {
-      setCurrentStep(currentStep + 1);
+    if (!selectedProject) return;
+
+    const currentStepObj = selectedProject.steps[currentStep];
+    const currentLinks = currentStepObj.links || [];
+
+    if (currentStepObj.title === "Business Requirements") {
+      if (clickedLinks.size < currentLinks.length) {
+        toast.error("Please click all the business document links before proceeding.");
+        return;
+      } else {
+        toast.success("Business step completed!");
+      }
+    }
+
+    if (currentLinks.every(link => clickedLinks.has(link))) {
+      setCurrentStep(prev => prev + 1);
+    } else {
+      toast.error("Please click all the links before proceeding.");
     }
   };
 
   const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
+    setCurrentStep(currentStep - 1);
+  };
+
+  const handleLinkClick = (link: string) => {
+    setClickedLinks(prev => new Set(prev.add(link)));
+    toast.info(`Clicked link: ${link}`);
   };
 
   return (
     <div className="frontend-page">
+      <ToastContainer />
       <h1 className="page-title">Front-End Department</h1>
 
       <div className="projects-container">
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className={`project-card ${selectedProject?.name === project.name ? "disabled" : ""}`}
+            className={`project-card ${selectedProject?.name === project.name ? "selected-card" : ""}`}
             layout
             transition={{ layout: { duration: 0.6 }, type: "spring" }}
-            onClick={() => {
-              if (!selectedProject || selectedProject.name !== project.name) {
-                handleCardClick(project);
-              }
-            }}
+            onClick={() => handleCardClick(project)}
           >
             <Card logo={project.logo} title={project.name} description={project.description} />
           </motion.div>
@@ -235,20 +267,6 @@ const FrontEnd: React.FC = () => {
           animate={{ scale: 1, y: 0 }}
           transition={{ duration: 0.6, type: "spring" }}
         >
-          <motion.div
-            className="selected-card"
-            layout
-            initial={{ scale: 0.9, y: -50 }}
-            animate={{ scale: 1, y: 0 }}
-            transition={{ duration: 0.6, type: "spring" }}
-          >
-            <Card
-              logo={selectedProject.logo}
-              title={selectedProject.name}
-              description={selectedProject.description}
-            />
-          </motion.div>
-
           <div className="project-steps-container">
             <Stepper activeStep={currentStep} alternativeLabel>
               {selectedProject.steps.map((step, index) => (
@@ -265,12 +283,34 @@ const FrontEnd: React.FC = () => {
                 {selectedProject.steps[currentStep].description}
               </Typography>
               {selectedProject.steps[currentStep].details}
+              {selectedProject.steps[currentStep].links?.map(link => (
+                <Typography key={link}>
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => handleLinkClick(link)}
+                  >
+                    {link}
+                  </a>
+                </Typography>
+              ))}
             </Box>
             <div className="step-navigation">
-              <Button onClick={handlePrevious} disabled={currentStep === 0} variant="contained" color="primary">
+              <Button
+                onClick={handlePrevious}
+                disabled={currentStep === 0}
+                variant="contained"
+                color="primary"
+              >
                 Previous
               </Button>
-              <Button onClick={handleNext} disabled={currentStep === selectedProject.steps.length - 1} variant="contained" color="primary">
+              <Button
+                onClick={handleNext}
+                disabled={currentStep === selectedProject.steps.length - 1}
+                variant="contained"
+                color="primary"
+              >
                 Next
               </Button>
             </div>

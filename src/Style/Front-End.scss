@@ -5,35 +5,50 @@
   flex-direction: column;
   align-items: center;
   background-color: #f8f9fa;
+  font-family: "Urbanist", serif;
+  font-optical-sizing: auto;
+
 
   .page-title {
-    font-size: 2.5rem;
+    font-size: 25px;
     font-weight: bold;
+    margin-bottom: 40px;
+    font-size: 25px;
     color: #444;
-    margin-bottom: 2rem;
     text-align: center;
+    font-family: "Urbanist", serif;
+  font-optical-sizing: auto;
+
   }
 
   .projects-container {
     display: flex;
-    justify-content: center;
+    justify-content: center; 
+    align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
+  
   }
 
   .selected-project-container {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    margin-top: 3rem;
+    width: 100%;
+   width: 900px;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 
     .project-steps-container {
       width: 100%;
       max-width: 800px;
+      margin: 50px;
 
       .current-step-content {
         margin-top: 1rem;
+        font-family: "Urbanist", serif;
+        font-optical-sizing: auto;
+
         color: #444;
       }
 
@@ -44,4 +59,36 @@
       }
     }
   }
+}
+.project-card {
+  border: 2px solid transparent; 
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+.selected-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  border: 2px solid transparent;
+  font-family: "Urbanist", serif;
+  font-optical-sizing: auto;
+  border-image: linear-gradient(45deg, #41C9C3, #3A66D8, #3D0B37) 1;
+}
+.structure-img {
+  width: 500px;
+  height: 500px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto; 
+}
+.structure-img2{
+  width: 500px;
+  height: 200px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto; 
 }
